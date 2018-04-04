@@ -1,0 +1,8 @@
+env/
+**__pycache__
+creds.sql
+.env
+.vscode/
+**/*.log
+package-lock.json
+node_modules/

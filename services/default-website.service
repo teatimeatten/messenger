@@ -1,0 +1,12 @@
+[Unit]
+Description=Gunicorn instance to serve the website
+After=network.target
+
+[Service]
+User=pa_ssion
+Group=www-data
+WorkingDirectory=/opt/
+ExecStart=/usr/bin/gunicorn3 --workers 4 --worker-class eventlet --bind unix:<socket-name>.sock -m 007 serve:app
+
+[Install]
+WantedBy=multi-user.target

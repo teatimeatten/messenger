@@ -1,0 +1,41 @@
+#!/bin/bash
+
+add-apt-repository -y ppa:certbot/certbot
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+apt update -y
+
+apt install -y software-properties-common
+apt install -y python3-venv python3-pip python3-dev
+apt install -y nginx gunicorn3
+apt install -y certbot python-certbot-nginx
+apt install -y nodejs yarn
+
+# certbot --nginx # certonly to renew
+# this will also install a cronjob to renew by default
+
+pip3 install -r requirements.txt
+pip3 install eventlet # necessary for gunicorn to run flask_socketio
+
+apt install -y mariadb-server
+
+mysql < ./creds.sql
+systemctl start mysql
+
+rm /etc/systemd/system/messenger-webpack.service
+ln -s $(pwd)/services/messenger-webpack.service /etc/systemd/system/
+systemctl enable messenger-webpack
+
+rm /etc/systemd/system/messenger-website.service
+ln -s $(pwd)/services/messenger-website.service /etc/systemd/system/
+systemctl enable messenger-website
+
+rm /etc/nginx/sites-available/messenger
+ln -s $(pwd)/services/messenger.nginx /etc/nginx/sites-available/messenger
+rm /etc/nginx/sites-enabled/default
+rm /etc/nginx/sites-enabled/messenger
+ln -s $(pwd)/messenger.nginx /etc/nginx/sites-enabled/messenger
+
+systemctl restart nginx
