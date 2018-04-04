@@ -1,0 +1,39 @@
+server {
+    listen 80;
+    server_name messenger.poolniggas.com;
+
+    location ~ /.well-known {
+        root /etc/letsencrypt/live/messenger.poolniggas.com/;
+    }
+
+    location / {
+      return 301 https://$host$request_uri;
+    }
+}
+
+server {
+  listen 443 ssl;
+  server_name messenger.poolniggas.com;
+
+  ssl_certificate /etc/letsencrypt/live/messenger.poolniggas.com/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/messenger.poolniggas.com/privkey.pem; # managed by Certbot
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+  location /socket.io {
+    include proxy_params;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+
+    proxy_pass http://unix:/opt/messenger.sock;
+  }
+
+  location / {
+    include proxy_params;
+    proxy_pass http://unix:/opt/messenger.sock;
+  }
+}

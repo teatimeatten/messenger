@@ -16,12 +16,15 @@ export default class Conversation extends React.Component {
     const { submitMessage } = this.props;
 
     return (
-      <div className="container">
+      <div className="container" style={{
+        border: '1px solid lightgray',
+        padding: '10px',
+      }}>
         <h2>{conversation.display_name}</h2>
         <hr/>
         <div
           style={{
-            height: "80vh",
+            height: "70vh",
             overflow: "scroll"
           }}
           ref={ref => (this.messages_window = ref)}
@@ -34,9 +37,14 @@ export default class Conversation extends React.Component {
         </div>
         <div className="row">
           <div className="col-lg-8 col-md-10 mx-auto">
-            <MessageInput
-              onSubmit={message => submitMessage(conversation.id, message)}
-            />
+            <span style={{
+              bottom: '0',
+              width: '100%'
+            }}>
+              <MessageInput
+                onSubmit={message => submitMessage(conversation.id, message)}
+              />
+            </span>
           </div>
         </div>
       </div>

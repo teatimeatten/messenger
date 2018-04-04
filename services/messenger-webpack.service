@@ -1,0 +1,12 @@
+[Unit]
+Description=Yarn instance to keep jsx fresh
+After=network.target
+
+[Service]
+User=pa_ssion
+WorkingDirectory=/opt/components
+ExecStartPre=/usr/bin/yarn
+ExecStart=/usr/bin/yarn run watch
+
+[Install]
+WantedBy=multi-user.target

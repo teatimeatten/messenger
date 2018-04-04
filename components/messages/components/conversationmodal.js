@@ -17,7 +17,10 @@ export default class ConversationModal extends React.Component {
     let { name, added_users } = this.state;
 
     return (
-      <div className="modal-content">
+      <div className="modal-content" style={{
+        height: '80vh',
+        overflow: 'scroll',
+      }}>
         <div className="modal-header">
           <h5 className="modal-title">Create Conversation</h5>
           <button type="button" className="close" aria-label="Close" onClick={requestClose}>
