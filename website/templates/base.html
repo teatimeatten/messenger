@@ -9,7 +9,6 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="./static/dist/css/styles.css">
 
   <!-- Vendor Templates -->
   <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
@@ -17,7 +16,6 @@
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Lora:700i" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-  <link href="{{ url_for('static', filename='dist/js/styles.bundle.js') }}" rel="stylesheet" type="text/css">
   {% block css %}
   {% endblock %}
 </head>
@@ -80,6 +78,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="{{ url_for('static', filename='dist/js/vendor.bundle.js')}}"></script>
   <script src="{{ url_for('static', filename='dist/js/manifest.bundle.js')}}"></script>
+  <script src="{{ url_for('static', filename='dist/js/styles.bundle.js')}}"></script>
   {% block scripts %}
   {% endblock %}
 </body>
