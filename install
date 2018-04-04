@@ -16,6 +16,7 @@ apt install -y nodejs yarn
 # certbot --nginx # certonly to renew
 # this will also install a cronjob to renew by default
 
+pip3 install --upgrade pip
 pip3 install -r requirements.txt
 pip3 install eventlet # necessary for gunicorn to run flask_socketio
 
@@ -36,6 +37,6 @@ rm /etc/nginx/sites-available/messenger
 ln -s $(pwd)/services/messenger.nginx /etc/nginx/sites-available/messenger
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-enabled/messenger
-ln -s $(pwd)/messenger.nginx /etc/nginx/sites-enabled/messenger
+ln -s $(pwd)/services/messenger.nginx /etc/nginx/sites-enabled/messenger
 
 systemctl restart nginx

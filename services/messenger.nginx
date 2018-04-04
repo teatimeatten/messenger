@@ -1,9 +1,9 @@
 server {
     listen 80;
-    server_name messenger.poolniggas.com;
+    server_name messenger.teatimeatten.com;
 
     location ~ /.well-known {
-        root /etc/letsencrypt/live/messenger.poolniggas.com/;
+        root /etc/letsencrypt/live/messenger.teatimeatten.com/;
     }
 
     location / {
@@ -13,10 +13,10 @@ server {
 
 server {
   listen 443 ssl;
-  server_name messenger.poolniggas.com;
+  server_name messenger.teatimeatten.com;
 
-  ssl_certificate /etc/letsencrypt/live/messenger.poolniggas.com/fullchain.pem; # managed by Certbot
-  ssl_certificate_key /etc/letsencrypt/live/messenger.poolniggas.com/privkey.pem; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/messenger.teatimeatten.com/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/messenger.teatimeatten.com/privkey.pem; # managed by Certbot
   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
