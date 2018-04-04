@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export $(cat .env | xargs);
 
-flask db migrate
-flask db upgrade
+systemctl daemon-reload
+systemctl restart messenger-webpack
+systemctl restart nginx
+systemctl restart messenger-website
