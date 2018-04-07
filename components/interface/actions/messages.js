@@ -5,7 +5,7 @@ export function newMessage(conversation_id, message) {
     conversation_id,
     message,
   };
-}
+} // ADD MESSAGE TO LIST TO DISPLAY
 
 export const LOAD_MESSAGES = 'LOAD-MESSAGES';
 export function loadMessages(conversation_id, messages) {
@@ -23,7 +23,7 @@ export function sendMessage(conversation_id, message) {
     conversation_id,
     message,
   };
-}
+} // SOCKET IO SEND MESSAGE
 
 export const DELETE_MESSAGE = 'DELETE-MESSAGE';
 export function deleteMessage(conversation_id, message_id) {

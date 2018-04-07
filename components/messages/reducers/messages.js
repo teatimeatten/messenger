@@ -1,7 +1,6 @@
 import { LOAD_CONVERSATION_MESSAGES, RECEIVE_MESSAGE } from '../actions';
 
-const initialState = {
-};
+const initialState = {};
 
 export default function messages(state=initialState, action) {
   switch(action.type) {

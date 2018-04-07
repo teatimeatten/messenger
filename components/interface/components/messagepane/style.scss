@@ -1,0 +1,18 @@
+#message-pane {
+
+    #messages {
+      height: 80%;
+      overflow-y: scroll;
+      position: absolute;
+      bottom: 50px;
+      padding-bottom: 3px;
+      width: 100%;
+    }
+
+    #create-message {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+    }
+}

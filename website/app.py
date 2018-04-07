@@ -1,5 +1,5 @@
 from os import environ as env
-from flask import Flask, render_template, session, g
+from flask import Flask, render_template, session, g, redirect, url_for
 from sqlalchemy_utils import create_database, database_exists
 from flask_migrate import Migrate
 
@@ -28,17 +28,18 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        return redirect(url_for('messages'))
+        # return render_template('index.html')
 
-    @app.route('/messages')
-    @login_required
-    def messages():
-        return render_template('messages.html')
+    # @app.route('/messages')
+    # @login_required
+    # def messages():
+    #     return render_template('messages.html')
 
 
     @app.route('/interface')
     @login_required
-    def interface():
+    def messages():
         return render_template('interface.html')
 
     app.register_blueprint(account)

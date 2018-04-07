@@ -28,6 +28,7 @@ def connected():
     emit('online_users', list(online.keys()))
     emit('self', user.serialize())
     emit('conversations', [c.serialize() for c in user.conversations])
+    emit('users', [u.lean() for u in User.query.all()])
 
 @socketio.on('disconnect', namespace='/messages')
 @login_required
@@ -63,7 +64,7 @@ def add_user(conversation_id, user_id):
 @login_required
 def rename_conversation(conversation_id, name):
     conversation = Conversation.query.get(conversation_id)
-    conversation.name = name
+    conversation.display_name = name
     db.session.add(conversation)
     db.session.commit()
     for user in conversation.users:

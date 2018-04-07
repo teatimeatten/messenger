@@ -15,6 +15,8 @@ module.exports = {
       'react-redux',
       'redux-thunk',
       'redux-logger',
+      'react-tag-input',
+      'react-modal',
     ],
   },
   output: {

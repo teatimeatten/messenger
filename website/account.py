@@ -79,7 +79,7 @@ def login():
         return render_template('account/login.html')
     if checkpw(request.form['password'].encode('utf-8'), user.passhash.encode('utf-8')):
         session['user_id'] = user.id
-        return redirect('/')
+        return redirect(url_for('messages'));
     else:
         flash('Invalid credentials')
         return render_template('account/login.html')

@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
 
 import { newMessage, SEND_MESSAGE, loadMessages } from './actions/messages';
-import { addConversation, DELETE_CONVERSATION, SELECT_CONVERSATION, loadConversations, deleteConversation, updateConversation } from './actions/conversations';
-import { addUser, deleteUser } from './actions/users';
+import { addConversation, DELETE_CONVERSATION, SELECT_CONVERSATION, loadConversations, deleteConversation, updateConversation, CHANGE_CONVERSATION_NAME } from './actions/conversations';
+import { addUser, deleteUser, loadUsers } from './actions/users';
 import { loadSelf } from './actions/self';
 import { addOnline, loadOnline, removeOnline } from './actions/online';
 
@@ -50,7 +50,11 @@ export default class Socket {
 
     this.socket.on('messages', (conversation_id, messages) => {
       this.store.dispatch(loadMessages(conversation_id, messages));
-    })
+    });
+
+    this.socket.on('users', (users) => {
+      this.store.dispatch(loadUsers(users));
+    });
 
     this.addStore = this.addStore.bind(this);
     this.middleware = this.middleware.bind(this);
@@ -72,6 +76,9 @@ export default class Socket {
         break;
       case SELECT_CONVERSATION:
         this.socket.emit('join_conversation', action.conversation_id);
+        break;
+      case CHANGE_CONVERSATION_NAME:
+        this.socket.emit('rename_conversation', action.conversation_id, action.name);
         break;
       }
       return next(action);
