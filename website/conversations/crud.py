@@ -1,7 +1,9 @@
 from flask import jsonify, request, g, abort
+from flask_socketio import emit
 
 from database import db, Conversation, User, Message
 from website.account import login_required_json
+from sockets.messages import online
 
 from . import conversations
 

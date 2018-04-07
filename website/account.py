@@ -11,7 +11,8 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
             return redirect(url_for('account.login'))
-        if not g.user:
+        if not hasattr(g, 'user') or not g.user:
+            print(session)
             return redirect(url_for('account.login'))
         return f(*args, **kwargs)
     return decorated_function
@@ -33,6 +34,11 @@ def login_required_json(f):
     return decorated_function
 
 account = Blueprint('account', __name__)
+
+@account.before_app_request
+def preload_g_user():
+    if 'user_id' in session:
+        g.user = User.query.get(session['user_id'])
 
 @account.route("/signup", methods=['GET', 'POST'])
 def signup():

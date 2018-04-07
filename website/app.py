@@ -35,6 +35,12 @@ def create_app():
     def messages():
         return render_template('messages.html')
 
+
+    @app.route('/interface')
+    @login_required
+    def interface():
+        return render_template('interface.html')
+
     app.register_blueprint(account)
     app.register_blueprint(conversations, url_prefix='/conversations')
     app.register_blueprint(users, url_prefix='/users')

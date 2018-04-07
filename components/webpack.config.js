@@ -9,6 +9,7 @@ module.exports = {
   entry: {
       'messages': path.resolve(SOURCE_DIR, 'messages'),
       'styles': path.resolve(SOURCE_DIR, 'styles'),
+      'interface': path.resolve(SOURCE_DIR, 'interface'),
   },
   output: {
     filename: '[name].bundle.js',

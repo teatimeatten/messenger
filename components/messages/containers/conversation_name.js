@@ -34,3 +34,7 @@ class EditNameField extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  name: state.conversations[state.selected.id].display_name,
+});
