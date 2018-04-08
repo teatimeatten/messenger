@@ -52,6 +52,7 @@ export function createConversation(conversation) {
     axios.post('/conversations', conversation)
       .then(({data}) => {
         dispatch(addConversation(data.conversation));
+        dispatch(selectConversation(data.conversation.id));
       }).finally(()=>{
         dispatch(finishCreateConversation());
       });

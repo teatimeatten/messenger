@@ -1,5 +1,7 @@
 from uuid import uuid4
 
+from sqlalchemy.orm import validates
+
 from . import db
 from .tracking import TrackingModel
 
@@ -37,10 +39,16 @@ conversations_to_users = db.Table('conversations_to_users',
 
 class Conversation(TrackingModel):
 
-    display_name = db.Column(db.Text(10), default=lambda: str(uuid4())[:10])
+    display_name = db.Column(db.Text(length=255), default=lambda: str(uuid4())[:10], nullable=False)
 
     users = db.relationship('User', secondary=conversations_to_users, lazy='subquery', backref=db.backref('conversations', lazy=True))
     messages = db.relationship('Message', cascade='all, delete-orphan')
+
+    @validates('display_name')
+    def validate_display_name(self, key, display_name):
+        print(key)
+        assert len(display_name) != 0
+        return display_name
 
     def lean(self):
         base = super().serialize()

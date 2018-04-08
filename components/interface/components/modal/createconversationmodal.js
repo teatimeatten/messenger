@@ -34,12 +34,16 @@ class CreateConversationModalContent extends React.Component {
     let submitConversationForm = (e) => {
       e.preventDefault();
       createConversation(name, added_ids);
+      requestClose();
     }
 
     let tags = added_ids.map(id => ({id: id.toString(), text: users[id].display_name, user_id: id}));
     let suggestions = Object.values(users).filter(({id}) => !added_ids.includes(id)).map(({id, display_name}) => ({id: id.toString(), text: display_name, user_id: id}));
     let deleteTag = (i) => this.setState({ added_ids: added_ids.filter((_, index) => index != i)});
-    let addTag = ({user_id}) => this.setState({ added_ids: [...added_ids, user_id] });
+    let addTag = ({user_id}) => {
+      if (user_id == undefined) return;
+      this.setState({ added_ids: [...added_ids, user_id] });
+    };
 
     return (
       <form onSubmit={submitConversationForm}>
@@ -55,14 +59,15 @@ class CreateConversationModalContent extends React.Component {
               <label htmlFor="name" className="form-control-label">Conversation Name</label>
               <input type="text" className="form-control"
                 onChange={(e)=>this.setState({name: e.target.value})}
-                value={name} />
+                value={name} required />
             </div>
             <div className="form-group">
               <ReactTags tags={tags}
                 suggestions={suggestions}
                 handleDelete={deleteTag}
                 handleAddition={addTag}
-                placeholder="Add a user..." />
+                minQueryLength={0}
+                placeholder="Add a user..." required />
             </div>
           </div>
           <div className="modal-footer">
