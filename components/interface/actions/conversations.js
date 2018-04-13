@@ -52,6 +52,7 @@ export function createConversation(conversation) {
     axios.post('/conversations', conversation)
       .then(({data}) => {
         dispatch(addConversation(data.conversation));
+        dispatch(newConversation(data.conversation));
         dispatch(selectConversation(data.conversation.id));
       }).finally(()=>{
         dispatch(finishCreateConversation());
@@ -75,3 +76,11 @@ export function selectConversation(conversation_id) {
     conversation_id,
   };
 }
+
+export const NEW_CONVERSATION = 'NEW-CONVERSATION';
+export function newConversation(conversation) {
+  return {
+    type: NEW_CONVERSATION,
+    conversation,
+  };
+};
